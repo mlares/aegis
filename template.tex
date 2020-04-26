@@ -1,0 +1,107 @@
+\documentclass[12pt, parcial]{famaf}
+ 
+% Packages //////////////////////////////
+\usepackage{graphicx}
+\usepackage[pdftex]{hyperref}
+\usepackage{subfigure}
+\usepackage{natbib}
+\usepackage{helvet}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage[font=small]{caption}
+\usepackage[linewidth=1pt]{mdframed}
+\usepackage[shortlabels]{enumitem}
+
+
+\usepackage{color}
+   \definecolor{dkgreen}{rgb}{0,0.6,0}
+   \definecolor{gray}{rgb}{0.5,0.5,0.5}
+   \definecolor{mauve}{rgb}{0.58,0,0.82}
+   \definecolor{airforceblue}{rgb}{0.36, 0.54, 0.66}
+   \definecolor{charcoal}{rgb}{0.21, 0.27, 0.31}
+   \newenvironment{recomendaciones}[1]{%
+       \itshape \bfseries
+       \leavevmode\color{#1}\ignorespaces%
+       }{\mdseries \upshape \vspace{1cm}}
+ 
+\usepackage{listings}
+   \lstset{frame=tb, language=python,
+     aboveskip=3mm, belowskip=3mm, numbers=none,
+     showstringspaces=false, columns=flexible,
+     basicstyle={\small\ttfamily},
+     numberstyle=\tiny\color{gray}, keywordstyle=\color{blue},
+     commentstyle=\color{dkgreen}, stringstyle=\color{mauve},
+     breaklines=false, breakatwhitespace=true, tabsize=3
+   }
+
+\newcommand{\iitem}[1]{\vspace{0.4cm} \noindent%
+\textbullet \hspace{5pt} \textsc{#1} \bigskip}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{1ex plus 0.5ex minus 0.2ex}
+
+% Layout ////////////////////////////////
+\setlength{\voffset}{-0.5cm}
+\setlength{\hoffset}{2cm}
+\setlength{\oddsidemargin}{-2cm}
+\setlength{\textheight}{23cm}
+\setlength{\textwidth}{15.5cm}
+
+\frenchspacing
+\linespread{1.2}
+
+
+% ejercicios ////////////////////////////////
+\newcounter{guianro}
+\newcounter{ejnro}
+\newcounter{cuent}
+
+\newenvironment{ej}[1]%
+{\addtocounter{ejnro}{1}\hspace{-1.2cm}$\triangleright$\hspace{.3cm}{\textbf{\arabic{ejnro}.}}\hspace{.3cm}}%
+{\vspace{5pt}}
+ 
+\newenvironment{ejj}[1]%
+{\addtocounter{ejnro}{1}\hspace{-1.2cm}$\blacktriangleright$\hspace{.3cm}{\textbf{\arabic{ejnro}.}}\hspace{.3cm}}%
+{\vspace{5pt}}
+
+
+
+
+\title{Parcial 1: Ecuaciones lineales}
+\titlerunning{Parcial 1 de Computación}
+
+\materia{Computación para profesorados}
+\examen{Parcial 1}
+\fecha{20 de abril de 2020}
+
+
+\begin{document}                            
+ 
+\maketitle
+
+\begin{recomendaciones}{charcoal}
+
+Todas las tareas del parcial deben quedar grabadas en archivos
+que guardará en un subdirectorio de trabajo {\tt parcial-1}.
+
+Para cada problema, en un archivo llamado {\tt respuestas-problema-\#.txt}
+donde \# es el número del problema,
+escriba las repuestas requeridas en cada ítem.
+Mencione el ítem correspondiente en cada respuesta. 
+ 
+\end{recomendaciones}
+
+
+\BLOCK{ for ej in exs } 
+
+   \begin{ejj}
+
+      \VAR{ej}
+
+   \end{ejj}
+
+\BLOCK{ endfor }
+
+
+\end{document}
