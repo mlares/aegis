@@ -24,12 +24,7 @@ share/python-wheels/
 *.egg
 MANIFEST
 
-# local output directories
-out/
 
-# local data files
-*.pk
-*.csv 
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -39,7 +34,6 @@ out/
 
 # Installer logs
 pip-log.txt
-pip-delete-this-directory.txt
 
 # Unit test / coverage reports
 htmlcov/
@@ -51,27 +45,15 @@ htmlcov/
 nosetests.xml
 coverage.xml
 *.cover
-*.py,cover
-.hypothesis/
 .pytest_cache/
 
-# Translations
-*.mo
-*.pot
 
 # Sphinx documentation
-doc
 doc/build/
 
-# PyBuilder
-target/
 
 # Jupyter Notebook
 .ipynb_checkpoints
-
-# IPython
-profile_default/
-ipython_config.py
 
 # pyenv
 .python-version
@@ -103,6 +85,3 @@ venv.bak/
 # Specific to this project:
 *.ini
 plt
-
-TaskList.rst
-dat

@@ -1,3 +1,17 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+
+# Copyright (c) 2020, Marcelo Lares
+# License: MIT
+#   Full text: https://github.com/mlares/aegis/blob/master/LICENSE
+
+"""AEGIS: Academic Exam Generator for Interchange and Shuffe.
+
+The purpose is to compose a collection of exams from a set of several
+versions of a number of problems. This is useful to generate several
+examns with a similar dificulty. It also can be used to generate
+alternative exams from a pool of exercises.
+"""
 import jinja2
 import itertools
 import subprocess as sp
@@ -6,13 +20,13 @@ import random
 
 
 class Exam():
-    '''
+    """
     Exam (class): tools to generate exams with random exercises.
 
     Methods
     -------
     load_template : load template
-    '''
+    """
 
     def __init__(self):
         """Initialize an instance of class Exam.
@@ -25,7 +39,24 @@ class Exam():
 
     def load_template(self, template_file):
         """Load a template.
+
+        Parameters
+        ----------
+        template_file: str
+            Name of the file containing the latex template
+
+        Returns
+        -------
+        Updates the self.template variable.
         """
+        exists = os.path.exists(template_file)
+        if exists:
+            pass
+        else:
+            print('ERROR: template file not found or can not be loaded')
+            self.template = None
+            return None
+
         a = template_file.split('/')
         template_dir = '/'.join(a[:-1]) + '/'
         if len(template_dir) == 1:
@@ -51,6 +82,18 @@ class Exam():
 
     def load_items(self, idir, items, subitems):
         """Load exercises to compile exams.
+
+        Parameters
+        ----------
+        idir: str
+           Directory where latex files are stored
+
+        items: list
+           List of numbers representing exercises
+
+        subitems: list
+           List of lists that contain the versions for each one of the
+           exercises in "items".
         """
         exs = []
         k = -1
@@ -143,7 +186,7 @@ class Exam():
                 for j, k in enumerate(versions):
                     exs.append(self.exs[j][k])
 
-                texname = 'parcial_' + str(c+1).zfill(4) + '.tex'
+                texname = 'parcial_' + str(c + 1).zfill(4) + '.tex'
                 texfile = '/'.join([output_dir, texname])
                 print(f'Generando parcial en archivo {texfile}')
 
@@ -174,7 +217,7 @@ class Exam():
                     exs.append(self.exs[i][k])
                 ex_list.append([j, k])
 
-                texname = 'parcial_' + str(c+1).zfill(4) + '.tex'
+                texname = 'parcial_' + str(c + 1).zfill(4) + '.tex'
                 texfile = '/'.join([output_dir, texname])
                 print(f'Generando parcial en archivo {texfile}')
 
@@ -200,10 +243,12 @@ class Exam():
 
         Parameters
         ----------
+        output_dir: directory where to put the excell file
 
         Returns
         --------
-        """ 
+        None
+        """
         from openpyxl import Workbook
         wb = Workbook()
         ws = wb.active
@@ -217,34 +262,40 @@ class Exam():
             ws[f"{chr(Aord)}{i+2}"] = f"examen {i+1}"
             for j, v in enumerate(e):
                 print(f"{chr(Aord+j)}, {i+2} : {v+1} ")
-                ws[f"{chr(Aord+j+1)}{i+2}"] = v+1
+                ws[f"{chr(Aord + j + 1)}{i + 2}"] = v + 1
 
         wb.save('exams_versions.xlsx')
 
 
 def gen_examples(N_problems=1, N_versions=[[1]],
-                 dir_tex='tex_files/', dir_pdf='pdf_files/'):
+                 dir_exams='exams/'):
     """Generate exams example files.
-    """
 
+    Parameters
+    ----------
+    N_problems: int
+        Numbers of the problems in the exams
+    N_versions: list of lists
+        Numbers of the versions to be used in the problems
+    dir_exams: str
+        Directory where latex files are stored
+
+    Returns
+    -------
+    problems: list
+        List of the numbers of the problems
+    versions: list of lists
+        Lists with the numbers of the versions
+    """
     from os import path, makedirs
 
     verbose = True
-    if not path.isdir(dir_tex):
-        print(f"Directory {dir_tex} does not exist")
+    if not path.isdir(dir_exams):
+        print(f"Directory {dir_exams} does not exist")
         try:
-            makedirs(dir_tex)
+            makedirs(dir_exams)
             if verbose:
-                print("Directory ", dir_tex,  " Created ")
-        except FileExistsError:
-            # directory already exists
-            pass
-    if not path.isdir(dir_pdf):
-        print(f"Directory {dir_tex} does not exist")
-        try:
-            makedirs(dir_pdf)
-            if verbose:
-                print("Directory ", dir_pdf,  " Created ")
+                print("Directory ", dir_exams, " Created ")
         except FileExistsError:
             # directory already exists
             pass
@@ -252,15 +303,15 @@ def gen_examples(N_problems=1, N_versions=[[1]],
     for ip, p in enumerate(range(N_problems)):
         for iv, v in enumerate(N_versions[ip]):
 
-            se = str(p+1).zfill(2)
+            se = str(p + 1).zfill(2)
             sv = str(v).zfill(2)
             filename = f"e{se}_v{sv}.tex"
-            filename = '/'.join([dir_tex, filename])
+            filename = '/'.join([dir_exams, filename])
             content = (f"This is the problem number {ip+1}, "
                        f"version {iv+1}.")
 
-            file = open(filename,'w') 
-            file.write(content) 
+            file = open(filename, 'w')
+            file.write(content)
             file.close()
 
     problems = list(range(N_problems))
@@ -268,6 +319,6 @@ def gen_examples(N_problems=1, N_versions=[[1]],
     for p in problems:
         vs = N_versions[p]
         versions.append(vs)
-    problems = [p+1 for p in problems]
+    problems = [p + 1 for p in problems]
 
     return problems, versions

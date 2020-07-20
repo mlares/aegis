@@ -534,7 +534,7 @@
 %
 \usepackage{graphicx}
 \newsavebox{\mygraphic}
-\sbox{\mygraphic}{\includegraphics[width=2.5cm]{logo_famaf.png}} 
+\sbox{\mygraphic}{\includegraphics[width=2.5cm]{vexam_logo.png}} 
 
 %
 % Define header

@@ -26,23 +26,17 @@ from setuptools import setup, find_packages
 PATH = pathlib.Path(os.path.abspath(os.path.dirname(__file__)))
 
 REQUIREMENTS = [
-    "numpy",
-    "attrs",
-    "pandas",
-    "tqdm",
-    "healpy",
-    "joblib",
-    "configparser",
-    "matplotlib"]
+    "jinja2",
+    "openpyxl"]
 
 with open(PATH / "README.rst") as fp:
     LONG_DESCRIPTION = fp.read()
  
 DESCRIPTION = (
-    "Tools to analyse cosmic microwave foregrounds"
+    "Tools to generate exams"
     )
 
-with open(PATH / "cmfg" / "__init__.py") as fp:
+with open(PATH / "aegis" / "__init__.py") as fp:
     VERSION = [
         l for l in fp.readlines() if l.startswith("__version__")
     ][0].split("=", 1)[-1].strip().replace('"', "")
@@ -55,7 +49,7 @@ with open(PATH / "cmfg" / "__init__.py") as fp:
 
 def do_setup():
     setup(
-        name="cmfg",
+        name="aegis",
         version=VERSION,
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
@@ -64,10 +58,10 @@ def do_setup():
         author=[
             "Marcelo Lares"],
         author_email="marcelo.lares@unc.edu.ar",
-        url="https://github.com/mlares/CBR_CrossCorr",
+        url="https://github.com/mlares/aegis",
         license="MIT",
 
-        keywords=["simulation"],
+        keywords=["latex"],
 
         classifiers=[
             "Development Status :: 4 - Beta",
@@ -76,11 +70,11 @@ def do_setup():
             "License :: OSI Approved :: MIT License",
             "Operating System :: OS Independent",
             "Programming Language :: Python",
-            "Programming Language :: Python :: 3.7",
+            "Programming Language :: Python :: 3.8",
             "Programming Language :: Python :: Implementation :: CPython",
             "Topic :: Scientific/Engineering"],
 
-        packages=["cmfg"],
+        packages=["aegis"],
         py_modules=["ez_setup"],
 
         install_requires=REQUIREMENTS)

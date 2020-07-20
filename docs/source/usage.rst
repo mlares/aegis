@@ -56,6 +56,12 @@ methods.  The most relevat options are:
     Call the :meth:``aegis.Exam.gen_excell``  method
 
 
+Excell file with the list of versions
+=======================================
+
+.. code:: python
+
+    X.gen_excell()
 
 
 
