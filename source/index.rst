@@ -17,9 +17,11 @@ Usage
 .. toctree::
    :maxdepth: 2
 
+   installation
    usage
    exercises
    templates
+   aegis
 
 
 ****************************
@@ -29,5 +31,4 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
 
