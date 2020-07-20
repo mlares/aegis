@@ -80,6 +80,3 @@ for c, i in enumerate(it[range_min:range_max]):
         proc.communicate()
 
     os.chdir(source_dir)
-
-
-
