@@ -2,10 +2,9 @@
 # DOCS
 # ===========================================================
 
-"""Utilities to analyse Cosmic Microwave Foregrounds
+"""AEGIS: Academic Exam Generator for Interchange and Shuffe.
 
 """
-
 
 # ===========================================================
 # IMPORTS
@@ -14,8 +13,8 @@
 import pathlib
 import os
 
-# from ez_setup import use_setuptools
-# use_setuptools()
+from ez_setup import use_setuptools
+use_setuptools()
 
 from setuptools import setup, find_packages
 
@@ -24,6 +23,7 @@ from setuptools import setup, find_packages
 # ===========================================================
 
 PATH = pathlib.Path(os.path.abspath(os.path.dirname(__file__)))
+print(PATH)
 
 REQUIREMENTS = [
     "jinja2",

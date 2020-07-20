@@ -1,4 +1,4 @@
-import aegis
+from aegis import aegis
 import shutil
 import pytest
 import pathlib
@@ -37,7 +37,6 @@ def test_examples_03():
     shutil.rmtree(new_dir)
 
 def test_template_01():
-    import aegis
     X = aegis.Exam()
     X.load_template('non_existent_file.tex')
 
@@ -52,27 +51,27 @@ def test_generate_01():
     items_dir = TEST_DIR
     problems, versions = aegis.gen_examples(dir_exams=items_dir)
     X.load_items(items_dir, problems, versions)
-    X.load_template('template.tex')
-    X.generate(N=4, output_dir='exams', makepdfs=False)
-
-def test_generate_02():
-    X = aegis.Exam()
-    items_dir = TEST_DIR
-    problems, versions = aegis.gen_examples(dir_exams=items_dir)
-    X.load_items(items_dir, problems, versions)
-    X.load_template('template.tex')
-    X.generate(N=0, output_dir='exams', makepdfs=False)
- 
-def test_generate_03():
-    X = aegis.Exam()
-    items_dir = TEST_DIR
-    problems, versions = aegis.gen_examples(dir_exams=items_dir)
-    X.load_items(items_dir, problems, versions)
-    X.load_template('template.tex')
-    X.generate(N=1, output_dir='exams', makepdfs=True)
-
-def test_cleanup():
-    shutil.rmtree(TEST_DIR)
+#    X.load_template('template.tex')
+#    X.generate(N=4, output_dir='exams', makepdfs=False)
+#
+#def test_generate_02():
+#    X = aegis.Exam()
+#    items_dir = TEST_DIR
+#    problems, versions = aegis.gen_examples(dir_exams=items_dir)
+#    X.load_items(items_dir, problems, versions)
+#    X.load_template('template.tex')
+#    X.generate(N=0, output_dir='exams', makepdfs=False)
+# 
+#def test_generate_03():
+#    X = aegis.Exam()
+#    items_dir = TEST_DIR
+#    problems, versions = aegis.gen_examples(dir_exams=items_dir)
+#    X.load_items(items_dir, problems, versions)
+#    X.load_template('template.tex')
+#    X.generate(N=1, output_dir='exams', makepdfs=True)
+#
+#def test_cleanup():
+#    shutil.rmtree(TEST_DIR)
  
 
 # print(problems)
