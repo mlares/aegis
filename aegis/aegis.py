@@ -59,8 +59,6 @@ class Exam():
 
         a = template_file.split('/')
         template_dir = '/'.join(a[:-1]) + '/'
-        if len(template_dir) == 1:
-            template_dir = './'
         template_filename = a[-1]
         templateLoader = jinja2.FileSystemLoader(searchpath=template_dir)
 
@@ -128,7 +126,8 @@ class Exam():
 
         all_permutations : boolean (optional)
             If True, generate the complete list of possible combinations of the
-            versions of the exercises. Dafault: False.
+            versions of the exercises. If N is present, it will be
+            ignored. Default: False.
 
         makepdfs : boolean
             If True, compile PDF files from latex files. Default: False.
@@ -143,15 +142,19 @@ class Exam():
             returned if "interactive=True".
 
         """
+        if all_permutations:
+            shuffle = False
+
+        if not isinstance(output_dir, str):
+            print('output_dir not valid in function gen examples,')
+            print('using output_dir=exams/')
+            output_dir = "exams"
+
         if os.path.isdir(output_dir):
             msg = f"Saving PDF files in {output_dir}."
+            print(msg)
         else:
-            try:
-                os.makedirs(output_dir)
-            except Exception:
-                msg = (f"Directory {output_dir} does not exist and "
-                       f"can not be created.")
-                print(msg)
+            os.makedirs(output_dir)
 
         r = []
         nv = []
@@ -215,7 +218,7 @@ class Exam():
                 exs = []
                 for i, k in enumerate(list(v)):
                     exs.append(self.exs[i][k])
-                ex_list.append([j, k])
+                ex_list.append([c, k])
 
                 texname = 'parcial_' + str(c + 1).zfill(4) + '.tex'
                 texfile = '/'.join([output_dir, texname])
@@ -290,15 +293,15 @@ def gen_examples(N_problems=1, N_versions=[[1]],
     from os import path, makedirs
 
     verbose = True
+    if not isinstance(dir_exams, str):
+        print('dir_exams not valid in function gen examples,')
+        print('using dir_exams=exams/')
+        dir_exams = "exams"
     if not path.isdir(dir_exams):
         print(f"Directory {dir_exams} does not exist")
-        try:
-            makedirs(dir_exams)
-            if verbose:
-                print("Directory ", dir_exams, " Created ")
-        except FileExistsError:
-            # directory already exists
-            pass
+        makedirs(dir_exams)
+        if verbose:
+            print("Directory ", dir_exams, " Created ")
 
     for ip, p in enumerate(range(N_problems)):
         for iv, v in enumerate(N_versions[ip]):
@@ -323,4 +326,5 @@ def gen_examples(N_problems=1, N_versions=[[1]],
 
     return problems, versions
 
-# COVERAGE:  63, 149-154, 212-236, 239, 299-301
+
+# 63, 149-154, 212-236, 239, 303-308

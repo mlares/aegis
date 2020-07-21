@@ -36,6 +36,9 @@ def test_examples_03():
     problems, versions = aegis.gen_examples(dir_exams=new_dir)
     shutil.rmtree(new_dir)
 
+def test_examples_04():
+    problems, versions = aegis.gen_examples(dir_exams=11)
+
 def test_template_01():
     X = aegis.Exam()
     X.load_template('non_existent_file.tex')
@@ -54,17 +57,6 @@ def test_generate_01():
     X.load_template('../latex/template.tex')
     X.generate(N=4, output_dir='exams', makepdfs=False)
 
-def test_generate_02():
-    os.popen(r'cp ../latex/template.tex .')
-    X = aegis.Exam()
-    items_dir = TEST_DIR
-    problems, versions = aegis.gen_examples(dir_exams=items_dir)
-    X.load_items(items_dir, problems, versions)
-    X.load_template('template.tex')
-    if os.path.exists('template.tex'):
-        os.remove('template.tex')
-
-    
 def test_generate_03():
     X = aegis.Exam()
     items_dir = TEST_DIR
@@ -104,10 +96,48 @@ def test_generate_07():
     problems, versions = aegis.gen_examples(dir_exams=items_dir)
     X.load_items(items_dir, problems, versions)
     X.load_template('../latex/template.tex')
-    X.generate(N=1, output_dir='exams', makepdfs=False)
-    X.gen_excell(output_dir='exams/')             
+    output_dir = gen_dir_name()
+    X.generate(N=1, output_dir=output_dir, makepdfs=False)
     shutil.rmtree(items_dir)
+    shutil.rmtree(output_dir)
                                          
+def test_generate_08():
+    # generate ( gen_excell
+    X = aegis.Exam()
+    problems, versions = aegis.gen_examples(dir_exams=TEST_DIR)
+    X.load_items(TEST_DIR, problems, versions)
+    X.load_template('../latex/template.tex')
+    X.generate(N=1, output_dir=TEST_DIR, makepdfs=False)
+    X.gen_excell(output_dir=TEST_DIR)
+
+def test_generate_09():
+    # generate ( all_permutations
+    X = aegis.Exam()
+    problems, versions = aegis.gen_examples(dir_exams=TEST_DIR)
+    X.load_items(TEST_DIR, problems, versions)
+    X.load_template('../latex/template.tex')
+    X.generate(all_permutations=True, output_dir=TEST_DIR,
+               makepdfs=True)
+    X.gen_excell(output_dir=TEST_DIR)
+
+def test_generate_10():
+    # generate ( all_permutations
+    X = aegis.Exam()
+    problems, versions = aegis.gen_examples(dir_exams=TEST_DIR)
+    X.load_items(TEST_DIR, problems, versions)
+    X.load_template('../latex/template.tex')
+    N = 2
+    res = X.generate(N=N, output_dir=TEST_DIR,
+               makepdfs=False, interactive=True)
+    assert len(res) == N
+ 
+def test_generate_11():
+    X = aegis.Exam()
+    items_dir = TEST_DIR
+    problems, versions = aegis.gen_examples(dir_exams=items_dir)
+    X.load_items(items_dir, problems, versions)
+    X.load_template('../latex/template.tex')
+    X.generate(N=4, output_dir=42, makepdfs=False)     
 
 def test_cleanup():
     shutil.rmtree(TEST_DIR)
@@ -127,3 +157,7 @@ def test_cleanup():
 #  
 # X.generate(N=4, output_dir='exams', makepdfs=True)
 # # X.gen_excell(output_dir='exams/')             
+
+#coverage run -m pytest test.py
+#coverage report -m
+#coverage html
