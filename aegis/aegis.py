@@ -322,3 +322,5 @@ def gen_examples(N_problems=1, N_versions=[[1]],
     problems = [p + 1 for p in problems]
 
     return problems, versions
+
+# COVERAGE:  63, 149-154, 212-236, 239, 299-301

@@ -51,27 +51,66 @@ def test_generate_01():
     items_dir = TEST_DIR
     problems, versions = aegis.gen_examples(dir_exams=items_dir)
     X.load_items(items_dir, problems, versions)
-#    X.load_template('template.tex')
-#    X.generate(N=4, output_dir='exams', makepdfs=False)
-#
-#def test_generate_02():
-#    X = aegis.Exam()
-#    items_dir = TEST_DIR
-#    problems, versions = aegis.gen_examples(dir_exams=items_dir)
-#    X.load_items(items_dir, problems, versions)
-#    X.load_template('template.tex')
-#    X.generate(N=0, output_dir='exams', makepdfs=False)
-# 
-#def test_generate_03():
-#    X = aegis.Exam()
-#    items_dir = TEST_DIR
-#    problems, versions = aegis.gen_examples(dir_exams=items_dir)
-#    X.load_items(items_dir, problems, versions)
-#    X.load_template('template.tex')
-#    X.generate(N=1, output_dir='exams', makepdfs=True)
-#
-#def test_cleanup():
-#    shutil.rmtree(TEST_DIR)
+    X.load_template('../latex/template.tex')
+    X.generate(N=4, output_dir='exams', makepdfs=False)
+
+def test_generate_02():
+    os.popen(r'cp ../latex/template.tex .')
+    X = aegis.Exam()
+    items_dir = TEST_DIR
+    problems, versions = aegis.gen_examples(dir_exams=items_dir)
+    X.load_items(items_dir, problems, versions)
+    X.load_template('template.tex')
+    if os.path.exists('template.tex'):
+        os.remove('template.tex')
+
+    
+def test_generate_03():
+    X = aegis.Exam()
+    items_dir = TEST_DIR
+    problems, versions = aegis.gen_examples(dir_exams=items_dir)
+    X.load_items(items_dir, problems, versions)
+    X.load_template('../latex/template.tex')
+    X.generate(N=0, output_dir='exams', makepdfs=False)
+ 
+def test_generate_04():
+    X = aegis.Exam()
+    items_dir = TEST_DIR
+    problems, versions = aegis.gen_examples(dir_exams=items_dir)
+    X.load_items(items_dir, problems, versions)
+    X.load_template('../latex/template.tex')
+    X.generate(N=1, output_dir='exams', makepdfs=True)
+
+def test_generate_05():
+    X = aegis.Exam()
+    items_dir = TEST_DIR
+    problems, versions = aegis.gen_examples(dir_exams=items_dir)
+    X.load_items(items_dir, problems, versions)
+    X.load_template('../latex/template.tex')
+    X.generate(N=0, output_dir='exams', makepdfs=True)
+                   
+def test_generate_06():
+    X = aegis.Exam()
+    items_dir = TEST_DIR
+    problems, versions = aegis.gen_examples(dir_exams=items_dir)
+    X.load_items(items_dir, problems, versions)
+    X.load_template('../latex/template.tex')
+    X.generate(N=1, output_dir='exams', makepdfs=False)
+    X.gen_excell(output_dir='exams/')             
+                   
+def test_generate_07():
+    X = aegis.Exam()
+    items_dir = gen_dir_name()
+    problems, versions = aegis.gen_examples(dir_exams=items_dir)
+    X.load_items(items_dir, problems, versions)
+    X.load_template('../latex/template.tex')
+    X.generate(N=1, output_dir='exams', makepdfs=False)
+    X.gen_excell(output_dir='exams/')             
+    shutil.rmtree(items_dir)
+                                         
+
+def test_cleanup():
+    shutil.rmtree(TEST_DIR)
  
 
 # print(problems)
@@ -88,4 +127,3 @@ def test_generate_01():
 #  
 # X.generate(N=4, output_dir='exams', makepdfs=True)
 # # X.gen_excell(output_dir='exams/')             
-#                  
