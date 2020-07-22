@@ -12,9 +12,15 @@
 #
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../'))
+import pathlib
+# sys.path.insert(0, os.path.abspath('../../aegis/'))
+# src_paths = [ '../../aegis/']
 
-src_paths = [ '../../']
+CURRENT_PATH = pathlib.Path(os.path.abspath(os.path.dirname(__file__)))
+AEGIS_PATH = CURRENT_PATH.parent.parent
+sys.path.insert(0, str(AEGIS_PATH))
+
+from aegis import aegis
 
 
 # -- Project information -----------------------------------------------------
@@ -24,8 +30,11 @@ copyright = '2020, Marcelo Lares'
 author = 'Marcelo Lares'
 
 # The full version, including alpha/beta/rc tags
-release = '0.1'
-
+with open(AEGIS_PATH / "aegis" / "__init__.py") as fp:
+    VERSION = [
+        l for l in fp.readlines() if l.startswith("__version__")
+    ][0].split("=", 1)[-1].strip().replace('"', "")
+release = VERSION
 
 # -- General configuration ---------------------------------------------------
 

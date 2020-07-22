@@ -5,11 +5,24 @@ Installation
 Downloading AEGIS
 ===============================
 
-AEGIS is publically available from a GitHub repository.  It can be downloaded with::
+The package can be installed either 
+`from source <https://github.com/mlares/aegis>`_
+or 
+`from the pypi reposository <http://www.pypi.org>`_.
+
+AEGIS is publically available from a GitHub repository.
+It can be downloaded or cloned with::
 
     git clone https://github.com/mlares/aegis.git
 
-The code can be explored using GitHub, including development activity and documentation.
+The code can be explored using GitHub, including development activity and documentation.  
+
+Requirements
+================
+
+AEGIS generates and compile Latex documents, so it need a working
+installation of Latex in the system.
+ 
 
 Installing AEGIS
 ===============================
@@ -19,15 +32,19 @@ Once the virtualenvironment has been set (recommended), then install the require
     pip install -r requirements.txt
 
 It is convenient to save the root directory of the installation.  
-In bash, for example,
+In bash, for example,::
 
-export aegis_rootdir="$(pwd)"
+   export aegis_rootdir="$(pwd)"
 
 
-Hearsay module can be used anywhere provided the following command 
+AEGIS module can be used anywhere provided the following command 
 is executed within the environment in the directory $aegis_rootdir::
 
     pip install .
+
+Alternatively, it can be installed via the `python package index <aegis>`_::
+
+    pip install aegis_latex  
 
 Testing
 ===============================
@@ -65,3 +82,8 @@ and version numbers.
    X.generate(N=4, output_dir='exams', makepdfs=True)
    # X.gen_excell(output_dir='exams/')             
     
+More tests can be found at ``tests/test.py``.
+
+
+
+

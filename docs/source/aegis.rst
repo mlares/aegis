@@ -1,7 +1,7 @@
 aegis module
 ===============
 
-.. automodule:: aegis
+.. automodule:: aegis.aegis
    :members:
    :undoc-members:
    :show-inheritance:

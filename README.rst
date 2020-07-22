@@ -7,15 +7,8 @@
 .. image:: https://travis-ci.org/mlares/aegis.svg?branch=master
     :target: https://travis-ci.org/mlares/aegis
 
-.. COVERAGE
-.. image:: https://coveralls.io/repos/github/mlares/aegis/badge.svg?branch=master
-:target: https://coveralls.io/github/mlares/aegis?branch=master
 
-.. LICENSE
-.. image:: https://img.shields.io/apm/l/aegis
-
-
-AEGIS / Academic Exam Generator for Interchange and Shuffe
+AEGIS / *Academic Exam Generator for Interchange and Shuffe*
 
 This package offers tools to compose exams from a pool of exercises.
 It can be used to produce a one-time exam from a set of chosen exercises,

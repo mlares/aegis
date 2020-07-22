@@ -333,7 +333,8 @@ class Exam():
 
                 se = str(p + 1).zfill(2)
                 sv = str(v).zfill(2)
-                filename = f"e{se}_v{sv}.tex"
+
+                filename = self.make_latex_filename(se, sv)
                 filename = '/'.join([dir_exams, filename])
                 content = (f"This is the problem number {ip+1}, "
                            f"version {iv+1}.")

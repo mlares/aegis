@@ -14,7 +14,11 @@ of a number of problems.  This is useful to generate several examns with a
 similar dificulty.  It also can be used to generate alternative exams from a
 pool of exercises.
 
+It requires a system with Latex and a pool of exercises written on separated
+Latex files.
 
+Project by Marcelo Lares (IATE, UNC).  Developed in 2020. Contact:
+marcelo.lares@unc.edu.ar
 
 
 ****************************
