@@ -36,6 +36,32 @@ class Exam():
         """
         self.items = []
         self.subitems = []
+        self.fnames = ['e', 'v', '_', 2, 2]
+
+    def name_pattern(self, problem_part, version_part,
+                     parts_separation='_',
+                     problem_format=2,
+                     version_format=2):
+        """Set the convention for latex filenames.
+
+        This convention must include two parts, the "problem_part"
+        and the "version_part".  If not set, the default is used:
+        problem_part = 'e'
+        version_part = 'v'
+        """
+        self.fnames = [problem_part, version_part, parts_separation,
+                       problem_format, version_format]
+
+    def make_latex_filename(self, p, v):
+        """Get the name of latex filenames from problem and version numbers.
+
+        If name_pattern was not set, the default convention is used.
+        """
+        p = str(p).zfill(self.fnames[3])
+        v = str(v).zfill(self.fnames[4])
+        texname = (f"{self.fnames[0]}{p}"
+                   f"{self.fnames[2]}{self.fnames[1]}{v}.tex")
+        return texname
 
     def load_template(self, template_file):
         """Load a template.
@@ -101,7 +127,7 @@ class Exam():
             for v in subitems[k]:
                 se = str(e).zfill(2)
                 sv = str(v).zfill(2)
-                fname = f"{idir}/e{se}_v{sv}.tex"
+                fname = f"{idir}/{self.make_latex_filename(se, sv)}"
                 with open(fname) as f:
                     txt = f.read()
                 exs[k].append(txt)
@@ -241,7 +267,7 @@ class Exam():
         if interactive:
             return ex_list
 
-    def gen_excell(self, output_dir='./'):
+    def gen_excell(self, output_dir='./', fname_xlsx='exams_versions.xlsx'):
         """Generate an Excell file with the contents of the exams.
 
         Parameters
@@ -267,64 +293,60 @@ class Exam():
                 print(f"{chr(Aord+j)}, {i+2} : {v+1} ")
                 ws[f"{chr(Aord + j + 1)}{i + 2}"] = v + 1
 
-        wb.save('exams_versions.xlsx')
+        wb.save(fname_xlsx)
 
+    def gen_examples(self, N_problems=1, N_versions=[[1]],
+                     dir_exams='exams/'):
+        """Generate exams example files.
 
-def gen_examples(N_problems=1, N_versions=[[1]],
-                 dir_exams='exams/'):
-    """Generate exams example files.
+        Parameters
+        ----------
+        N_problems: int
+            Numbers of the problems in the exams
+        N_versions: list of lists
+            Numbers of the versions to be used in the problems
+        dir_exams: str
+            Directory where latex files are stored
 
-    Parameters
-    ----------
-    N_problems: int
-        Numbers of the problems in the exams
-    N_versions: list of lists
-        Numbers of the versions to be used in the problems
-    dir_exams: str
-        Directory where latex files are stored
+        Returns
+        -------
+        problems: list
+            List of the numbers of the problems
+        versions: list of lists
+            Lists with the numbers of the versions
+        """
+        from os import path, makedirs
 
-    Returns
-    -------
-    problems: list
-        List of the numbers of the problems
-    versions: list of lists
-        Lists with the numbers of the versions
-    """
-    from os import path, makedirs
+        verbose = True
+        if not isinstance(dir_exams, str):
+            print('dir_exams not valid in function gen examples,')
+            print('using dir_exams=exams/')
+            dir_exams = "exams"
+        if not path.isdir(dir_exams):
+            print(f"Directory {dir_exams} does not exist")
+            makedirs(dir_exams)
+            if verbose:
+                print("Directory ", dir_exams, " Created ")
 
-    verbose = True
-    if not isinstance(dir_exams, str):
-        print('dir_exams not valid in function gen examples,')
-        print('using dir_exams=exams/')
-        dir_exams = "exams"
-    if not path.isdir(dir_exams):
-        print(f"Directory {dir_exams} does not exist")
-        makedirs(dir_exams)
-        if verbose:
-            print("Directory ", dir_exams, " Created ")
+        for ip, p in enumerate(range(N_problems)):
+            for iv, v in enumerate(N_versions[ip]):
 
-    for ip, p in enumerate(range(N_problems)):
-        for iv, v in enumerate(N_versions[ip]):
+                se = str(p + 1).zfill(2)
+                sv = str(v).zfill(2)
+                filename = f"e{se}_v{sv}.tex"
+                filename = '/'.join([dir_exams, filename])
+                content = (f"This is the problem number {ip+1}, "
+                           f"version {iv+1}.")
 
-            se = str(p + 1).zfill(2)
-            sv = str(v).zfill(2)
-            filename = f"e{se}_v{sv}.tex"
-            filename = '/'.join([dir_exams, filename])
-            content = (f"This is the problem number {ip+1}, "
-                       f"version {iv+1}.")
+                file = open(filename, 'w')
+                file.write(content)
+                file.close()
 
-            file = open(filename, 'w')
-            file.write(content)
-            file.close()
+        problems = list(range(N_problems))
+        versions = []
+        for p in problems:
+            vs = N_versions[p]
+            versions.append(vs)
+        problems = [p + 1 for p in problems]
 
-    problems = list(range(N_problems))
-    versions = []
-    for p in problems:
-        vs = N_versions[p]
-        versions.append(vs)
-    problems = [p + 1 for p in problems]
-
-    return problems, versions
-
-
-# 63, 149-154, 212-236, 239, 303-308
+        return problems, versions

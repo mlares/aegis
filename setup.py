@@ -49,7 +49,7 @@ with open(PATH / "aegis" / "__init__.py") as fp:
 
 def do_setup():
     setup(
-        name="aegis",
+        name="aegis_latex",
         version=VERSION,
         description=DESCRIPTION,
         long_description=LONG_DESCRIPTION,
