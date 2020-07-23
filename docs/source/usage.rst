@@ -34,7 +34,7 @@ Exercise 1 has three versions,
 exercise 2 has four versions, and 
 exercise 3 has two versions.
 
-The N option in :meth:`aegis.Exam.generate` allows to produce N exams.
+The N option in :meth:`~aegis.aegis.Exam.generate` allows to produce N exams.
 
 .. code:: python
 
@@ -58,28 +58,28 @@ All optional parameters are described in the documentation of the
 methods.  The most relevat options are:
 
 **Randomly combine exercise versions:**
-    In the :meth:``aegis.Exam.generate``  method, use the
+    In the :meth:`~aegis.aegis.Exam.generate`  method, use the
     ``shuffle=True`` option.
 
 **Compile PDF files:**
-    In the :meth:``aegis.Exam.generate``  method, use the
+    In the :meth:`~aegis.aegis.Exam.generate`  method, use the
     ``makepdfs=True`` option.
 
 **Generate an Excell file with the summary of exercise versions:**
-    Call the :meth:``aegis.Exam.gen_excell``  method
+    Call the :meth:`~aegis.aegis.Exam.gen_excell`  method
 
 
 Format for latex files
 =======================================
 
 The default format for latex files is ``e01_v01.tex``.  The method
-:meth:`Exam.gen_examples` produces example files with this format::
+:meth:`~aegis.aegis.Exam.gen_examples` produces example files with this format::
 
     X = aegis.Exam()
     X.gen_examples()
 
 It is possible to change the default behaviour with the method 
-:py:meth:`aegis.aegis.Exam.name_pattern`.  For example, in order to use a suite
+:py:meth:`~aegis.aegis.Exam.name_pattern`.  For example, in order to use a suite
 of exercises of the form:
 
 - problem_001-version_01.tex

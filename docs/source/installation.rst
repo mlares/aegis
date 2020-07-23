@@ -27,7 +27,7 @@ installation of Latex in the system.
 Installing AEGIS
 ===============================
 
-Once the virtualenvironment has been set (recommended), then install the required packages::
+Once the virtualenvironment has been set (recommended), and the project has been cloned, the next step is to install the required packages::
 
     pip install -r requirements.txt
 
@@ -35,7 +35,6 @@ It is convenient to save the root directory of the installation.
 In bash, for example,::
 
    export aegis_rootdir="$(pwd)"
-
 
 AEGIS module can be used anywhere provided the following command 
 is executed within the environment in the directory $aegis_rootdir::
@@ -65,7 +64,7 @@ and version numbers.
 
    import aegis
 
-   problems, versions = aegis.gen_examples(dir_tex='exams', dir_pdf='exams')
+   problems, versions = X.gen_examples(dir_tex='exams', dir_pdf='exams')
 
    print(problems)
    print(versions)
